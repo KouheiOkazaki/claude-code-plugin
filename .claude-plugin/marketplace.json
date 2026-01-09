@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "git-worktree",
+      "name": "ko-hi-san",
       "source": "./ko_hi_san",
       "description": "Git worktree management - easily create and remove worktrees"
     }
