@@ -1,15 +1,17 @@
 {
-  "name": "ko_hi_san's Claude Code Plugins",
-  "description": "A collection of useful plugins for Claude Code development",
-  "version": "1.0.0",
-  "author": {
+  "name": "ko-hi-sans-claude-code-plugins",
+  "owner": {
     "name": "ko-hi-san",
     "url": "https://github.com/KouheiOkazaki"
+  },
+  "metadata": {
+    "description": "A collection of useful plugins for Claude Code development",
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "git-worktree",
-      "path": "ko_hi_san",
+      "source": "./ko_hi_san",
       "description": "Git worktree management - easily create and remove worktrees"
     }
   ]
