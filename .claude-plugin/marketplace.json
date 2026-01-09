@@ -3,7 +3,7 @@
   "description": "A collection of useful plugins for Claude Code development",
   "version": "1.0.0",
   "author": {
-    "name": "ko_hi_san",
+    "name": "ko-hi-san",
     "url": "https://github.com/KouheiOkazaki"
   },
   "plugins": [
