@@ -1,5 +1,5 @@
 {
-  "name": "claude-code-plugin",
+  "name": "git-worktree",
   "description": "Git worktree management for Claude Code - easily create and remove worktrees",
   "version": "1.0.0",
   "author": {

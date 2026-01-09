@@ -1,0 +1,16 @@
+{
+  "name": "Kouhei's Claude Code Plugins",
+  "description": "A collection of useful plugins for Claude Code development",
+  "version": "1.0.0",
+  "author": {
+    "name": "KouheiOkazaki",
+    "url": "https://github.com/KouheiOkazaki"
+  },
+  "plugins": [
+    {
+      "name": "git-worktree",
+      "path": "plugins/git-worktree",
+      "description": "Git worktree management - easily create and remove worktrees"
+    }
+  ]
+}

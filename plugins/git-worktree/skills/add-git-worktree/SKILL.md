@@ -9,7 +9,7 @@ This skill creates a new git worktree with the specified name and automatically 
 
 ## Workflow
 
-When the user invokes this skill with a worktree name (e.g., `/claude-code-plugin:add-git-worktree feature-branch`):
+When the user invokes this skill with a worktree name (e.g., `/git-worktree:add-git-worktree feature-branch`):
 
 1. **Validate the input**:
    - Check that the user provided a worktree name in `$ARGUMENTS`
@@ -51,7 +51,7 @@ When the user invokes this skill with a worktree name (e.g., `/claude-code-plugi
 
 ## Example Usage
 
-User: `/claude-code-plugin:add-git-worktree feature-xyz`
+User: `/git-worktree:add-git-worktree feature-xyz`
 
 Expected behavior:
 1. Create `../worktrees/feature-xyz` directory

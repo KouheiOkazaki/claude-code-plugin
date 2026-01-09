@@ -9,7 +9,7 @@ This skill removes an existing git worktree with the specified name.
 
 ## Workflow
 
-When the user invokes this skill with a worktree name (e.g., `/claude-code-plugin:remove-worktree feature-branch`):
+When the user invokes this skill with a worktree name (e.g., `/git-worktree:remove-worktree feature-branch`):
 
 1. **Validate the input**:
    - Check that the user provided a worktree name in `$ARGUMENTS`
@@ -52,7 +52,7 @@ When the user invokes this skill with a worktree name (e.g., `/claude-code-plugi
 
 ## Example Usage
 
-User: `/claude-code-plugin:remove-worktree feature-xyz`
+User: `/git-worktree:remove-worktree feature-xyz`
 
 Expected behavior:
 1. Verify `../worktrees/feature-xyz` exists in git worktree list
