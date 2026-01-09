@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "git-worktree",
-      "path": "plugins/git-worktree",
+      "path": ".",
       "description": "Git worktree management - easily create and remove worktrees"
     }
   ]

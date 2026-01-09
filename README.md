@@ -1,45 +1,42 @@
-# Kouhei's Claude Code Plugins
+# Claude Code Plugin - Git Worktree Manager
 
-A curated collection of useful plugins for Claude Code to enhance your development workflow.
+A Claude Code plugin that provides easy git worktree management. Create and remove git worktrees with simple commands.
 
-## 🚀 Quick Start
+## Features
 
-### Install the Marketplace
+- **Create Worktrees**: Easily create new git worktrees in a standardized directory structure
+- **Auto-Navigation**: Automatically navigate to newly created worktrees
+- **Remove Worktrees**: Safely remove worktrees with built-in safety checks
+- **Error Handling**: Comprehensive validation and error messages
 
-Install all plugins from this marketplace:
+## Prerequisites
 
-```
+- Claude Code version 1.0.33 or later
+- Git version 2.5 or later (for worktree support)
+- A git repository
+
+## Installation
+
+### From GitHub (Recommended)
+
+```bash
 /plugin install https://github.com/KouheiOkazaki/claude-code-plugin
 ```
 
-This will make all plugins in this marketplace available in your Claude Code environment.
+### Local Development
 
-### Install Individual Plugins
+For testing or development, you can load the plugin locally:
 
-You can also install specific plugins:
-
-```
-/plugin install https://github.com/KouheiOkazaki/claude-code-plugin/plugins/git-worktree
+```bash
+claude --plugin-dir ./claude-code-plugin
 ```
 
-## 📦 Available Plugins
+## Configuration
 
-### Git Worktree Manager
+### Required Permissions
 
-**Name:** `git-worktree`
-**Commands:** `/git-worktree:add-git-worktree`, `/git-worktree:remove-worktree`
+Add the following permissions to your `.claude/settings.local.json` to allow the plugin to execute git commands:
 
-Easily manage git worktrees for parallel development workflows.
-
-**Features:**
-- Create worktrees with automatic navigation
-- Remove worktrees with safety checks
-- Standardized directory structure (`../worktrees/<name>`)
-- Comprehensive error handling
-
-**[View Plugin Documentation →](./plugins/git-worktree/README.md)**
-
-**Required Permissions:**
 ```json
 {
   "permissions": {
@@ -52,69 +49,215 @@ Easily manage git worktrees for parallel development workflows.
 }
 ```
 
-## 🔮 Coming Soon
+## Usage
 
-More plugins will be added to this marketplace:
-- Code review helpers
-- Project scaffolding tools
-- Development workflow automation
-- And more!
+### Creating a Worktree
 
-## 📖 Documentation
-
-Each plugin has its own detailed documentation in its respective directory:
-
-- [Git Worktree Manager](./plugins/git-worktree/README.md) - Git worktree management
-
-## 🛠️ For Plugin Developers
-
-### Adding a New Plugin
-
-To add a new plugin to this marketplace:
-
-1. Create a new directory in `plugins/`
-2. Add your plugin files following the Claude Code plugin structure
-3. Update `marketplace.json` to include your plugin
-4. Add documentation to the main README
-
-### Plugin Structure
+Create a new git worktree with a specified name:
 
 ```
-plugins/
-└── your-plugin/
-    ├── .claude-plugin/
-    │   └── plugin.json
-    ├── skills/
-    │   └── your-skill/
-    │       └── SKILL.md
-    └── README.md
+/git-worktree:add-git-worktree <worktree-name>
 ```
 
-## 📄 License
+**Example:**
 
-Individual plugins may have their own licenses. See each plugin's directory for details.
+```
+/git-worktree:add-git-worktree feature-auth
+```
 
-- Git Worktree Manager: MIT License
+This will:
+1. Create a directory at `../worktrees/feature-auth`
+2. Create a new branch named `feature-auth`
+3. Set up the worktree in that directory
+4. Automatically navigate to the new worktree
 
-## 🤝 Contributing
+**Directory Structure:**
 
-Contributions are welcome! Please feel free to:
+```
+your-repo/               # Your main repository
+├── .git/
+├── src/
+└── ...
 
-1. Submit issues for bugs or feature requests
-2. Create pull requests for improvements
-3. Suggest new plugins to add to the marketplace
+worktrees/               # Created automatically (sibling to your repo)
+└── feature-auth/        # Your new worktree
+    ├── .git
+    ├── src/
+    └── ...
+```
 
-## 📞 Support
+### Removing a Worktree
 
-- **Issues**: https://github.com/KouheiOkazaki/claude-code-plugin/issues
-- **Discussions**: https://github.com/KouheiOkazaki/claude-code-plugin/discussions
+Remove an existing git worktree:
 
-## 🔗 Links
+```
+/git-worktree:remove-worktree <worktree-name>
+```
 
-- [Claude Code Documentation](https://code.claude.com/docs)
-- [Plugin Development Guide](https://code.claude.com/docs/ja/plugins)
-- [GitHub Repository](https://github.com/KouheiOkazaki/claude-code-plugin)
+**Example:**
 
----
+```
+/git-worktree:remove-worktree feature-auth
+```
 
-Built with ❤️ for the Claude Code community
+This will:
+1. Verify the worktree exists
+2. Check for uncommitted changes (warns if found)
+3. Remove the worktree and its directory
+
+### Safety Features
+
+The plugin includes several safety features:
+
+- **Duplicate Detection**: Prevents creating worktrees with duplicate names
+- **Uncommitted Changes Warning**: Warns before removing worktrees with uncommitted changes
+- **Repository Validation**: Ensures you're in a git repository before operations
+- **Path Verification**: Verifies worktree paths exist before removal
+
+## Commands Reference
+
+| Command | Description | Arguments |
+|---------|-------------|-----------|
+| `/git-worktree:add-git-worktree` | Create a new worktree | `<worktree-name>` |
+| `/git-worktree:remove-worktree` | Remove an existing worktree | `<worktree-name>` |
+
+## Worktree Naming Convention
+
+Worktrees are created using the following path pattern:
+
+```
+../worktrees/<worktree-name>
+```
+
+This means:
+- Worktrees are created in a `worktrees/` directory
+- The `worktrees/` directory is a sibling to your main repository directory
+- Each worktree gets its own subdirectory named after the branch
+
+**Example:**
+
+If your repository is at `/Users/you/projects/my-app`, worktrees will be created at:
+- `/Users/you/projects/worktrees/feature-1`
+- `/Users/you/projects/worktrees/feature-2`
+- etc.
+
+## Troubleshooting
+
+### "Not in a git repository" error
+
+Make sure you're running the command from within a git repository. You can verify with:
+
+```bash
+git status
+```
+
+### "Worktree already exists" error
+
+A worktree with that name already exists. You can:
+1. Choose a different name
+2. Remove the existing worktree first using `/git-worktree:remove-worktree`
+3. List existing worktrees with: `git worktree list`
+
+### "Branch name already exists" error
+
+A branch with that name already exists. You can:
+1. Choose a different name
+2. Checkout the existing branch in a new worktree location (the plugin will offer this option)
+
+### Permission errors
+
+If you encounter permission errors, ensure you've added the required permissions to your `.claude/settings.local.json` file (see Configuration section above).
+
+### Git version issues
+
+Git worktrees require Git 2.5 or later. Check your version:
+
+```bash
+git --version
+```
+
+## Examples
+
+### Example 1: Creating a feature branch worktree
+
+```
+User: /git-worktree:add-git-worktree feature-login
+
+Claude: I'll create a new worktree for feature-login...
+
+✓ Created worktree at ../worktrees/feature-login
+✓ Created branch feature-login
+✓ Navigated to ../worktrees/feature-login
+
+You can now start working on your feature!
+```
+
+### Example 2: Removing a completed feature worktree
+
+```
+User: /git-worktree:remove-worktree feature-login
+
+Claude: I'll remove the worktree feature-login...
+
+✓ Verified worktree exists
+✓ Checked for uncommitted changes (none found)
+✓ Removed worktree ../worktrees/feature-login
+
+Worktree feature-login has been successfully removed.
+```
+
+### Example 3: Handling uncommitted changes
+
+```
+User: /git-worktree:remove-worktree feature-wip
+
+Claude: Warning: The worktree feature-wip has uncommitted changes.
+
+Are you sure you want to remove it? This will discard all uncommitted work.
+- Type 'yes' to force remove
+- Type 'no' to cancel
+```
+
+## How It Works
+
+### Add Worktree Workflow
+
+1. Validates the worktree name is provided
+2. Checks if you're in a git repository
+3. Verifies the worktree doesn't already exist
+4. Creates `../worktrees/` directory if needed
+5. Executes `git worktree add ../worktrees/<name> -b <name>`
+6. Navigates to the new worktree directory
+7. Confirms successful creation
+
+### Remove Worktree Workflow
+
+1. Validates the worktree name is provided
+2. Checks if you're in a git repository
+3. Verifies the worktree exists
+4. Checks for uncommitted changes
+5. Executes `git worktree remove ../worktrees/<name>` (with `--force` if needed)
+6. Confirms successful removal
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## License
+
+MIT License - See LICENSE file for details
+
+## Support
+
+If you encounter any issues or have questions:
+1. Check the Troubleshooting section above
+2. Review your permissions in `.claude/settings.local.json`
+3. Ensure you're using Git 2.5+ and Claude Code 1.0.33+
+4. Open an issue on GitHub: https://github.com/KouheiOkazaki/claude-code-plugin/issues
+
+## Version History
+
+### 1.0.0 (Initial Release)
+- Add git worktree creation with auto-navigation
+- Remove git worktree with safety checks
+- Comprehensive error handling and validation
