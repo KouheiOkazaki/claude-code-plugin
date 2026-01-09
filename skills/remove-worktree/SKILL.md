@@ -34,7 +34,7 @@ When the user invokes this skill with a worktree name (e.g., `/claude-code-plugi
 5. **Remove the worktree**:
    - Execute: `git worktree remove ../worktrees/$ARGUMENTS`
    - If there are uncommitted changes and the user confirmed, use: `git worktree remove --force ../worktrees/$ARGUMENTS`
-   - If the directory remains after removal, clean it up with `rm -rf ../worktrees/$ARGUMENTS`
+   - Note: `git worktree remove` automatically cleans up the directory
 
 6. **Provide feedback**:
    - Inform the user that the worktree was successfully removed
@@ -59,7 +59,6 @@ Expected behavior:
 2. Check for uncommitted changes
 3. Remove the worktree using `git worktree remove`
 4. Confirm successful removal
-5. Clean up any remaining directories
 
 ## Safety Features
 

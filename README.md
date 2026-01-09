@@ -42,11 +42,8 @@ Add the following permissions to your `.claude/settings.local.json` to allow the
   "permissions": {
     "allow": [
       "Bash(git worktree:*)",
-      "Bash(mkdir:*)",
-      "Bash(rm:*)",
-      "Bash(cd:*)",
-      "Bash(pwd:*)",
-      "Bash(git rev-parse:*)"
+      "Bash(git rev-parse:*)",
+      "Bash(mkdir -p ../worktrees:*)"
     ]
   }
 }
@@ -106,8 +103,7 @@ Remove an existing git worktree:
 This will:
 1. Verify the worktree exists
 2. Check for uncommitted changes (warns if found)
-3. Remove the worktree from git's tracking
-4. Clean up the directory
+3. Remove the worktree and its directory
 
 ### Safety Features
 
@@ -206,7 +202,6 @@ Claude: I'll remove the worktree feature-login...
 ✓ Verified worktree exists
 ✓ Checked for uncommitted changes (none found)
 ✓ Removed worktree ../worktrees/feature-login
-✓ Cleaned up directory
 
 Worktree feature-login has been successfully removed.
 ```
@@ -242,8 +237,7 @@ Are you sure you want to remove it? This will discard all uncommitted work.
 3. Verifies the worktree exists
 4. Checks for uncommitted changes
 5. Executes `git worktree remove ../worktrees/<name>` (with `--force` if needed)
-6. Cleans up any remaining directories
-7. Confirms successful removal
+6. Confirms successful removal
 
 ## Contributing
 
