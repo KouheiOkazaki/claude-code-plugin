@@ -1,13 +1,8 @@
 {
   "name": "git-worktree",
-  "description": "Git worktree management for Claude Code - easily create and remove worktrees",
   "version": "1.0.0",
+  "description": "Git worktree management for Claude Code - easily create and remove worktrees",
   "author": {
-    "name": "ko_hi_san"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KouheiOkazaki/claude-code-plugin"
-  },
-  "license": "MIT"
+    "name": "ko-hi-san"
+  }
 }
